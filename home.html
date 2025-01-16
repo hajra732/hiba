@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Transition from Left</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f7f7f7;
+    }
+
+    .image-container {
+      overflow: hidden; /* Ensures no overflow */
+      position: relative;
+      width: 300px; /* Adjust as needed */
+      height: 300px; /* Adjust as needed */
+    }
+
+    .image-container img {
+      display: block; /* Prevents inline spacing */
+      width: 100%; /* Makes the image responsive */
+      height: 100%; /* Ensures the image fits the container */
+      opacity: 0; /* Initially hidden */
+      transform: translateX(-100%); /* Start from left (outside container) */
+      transition: opacity 1.5s ease, transform 1.5s ease; /* Smooth transition */
+    }
+
+    .image-container img.loaded {
+      opacity: 1; /* Fully visible */
+      transform: translateX(0); /* Move to original position */
+    }
+  </style>
+</head>
+<body>
+  <div class="image-container">
+    <img src="./Bedroom-1.png" alt="Example Image">
+    <img src="./Bedroom-1.png" alt="Example Image">
+  </div>
+
+  <script>
+    // Wait until the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = document.querySelectorAll(".image-container img");
+
+      images.forEach((img) => {
+        // When the image finishes loading, add the 'loaded' class
+        img.onload = () => {
+          img.classList.add("loaded");
+        };
+        // Trigger the 'onload' event in case the image is cached
+        if (img.complete) {
+          img.onload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
